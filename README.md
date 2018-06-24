@@ -125,7 +125,6 @@ use this software:
 - "7725849364280821971S" for shift
 - "AZAXtswaWS4v8eYMzJRjpd5pN3wMBj8Rmk" for ark
 - "8691988869124917015R" for rise
-This software is adapated by CryptoGirls for TRX payments.
 
 ## Features added by CryptoGirls
 - adapted the script for TRX
