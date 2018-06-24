@@ -5,7 +5,7 @@
 	"nodepay": "",
 	"percentage": 70,
 	"logfile": "poollogs.json",
-	"minpayout": 65748111645000000,
+	"minpayout": 0,
 	"pk": "",
 	"feededuct": false,
 	"fees": 0,
