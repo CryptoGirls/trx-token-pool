@@ -45,7 +45,7 @@ If you want to run a private pool, you need to edit config.json and:
 
 ```git clone https://github.com/CryptoGirls/trx-pool```
 
-If you want to save snapshots in your database, run:
+If you want to save snapshots in your database, create the following tables in your database:
 
 ```
 create table voters(
