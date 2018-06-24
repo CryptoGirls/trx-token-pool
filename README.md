@@ -82,7 +82,7 @@ It produces a file "payments.sh" with all payments shell commands. Run this file
 
 ```bash payments.sh```
 
-The payments will be broadcasted (every second).
+The payments will be broadcasted every second.
 
 
 ## Batch mode
@@ -100,7 +100,10 @@ Even if you will run the payments daily, because of the 6 hours vote cycle, you 
 ```python3 trxpool.py -c config_snapshot.json```
 
 2. Run trxpool.py normally to broadcast the payments
-```python3 trxpool.py```
+```
+python3 trxpool.py
+bash payments.sh
+```
 
 
 ## Command line usage
