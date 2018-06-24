@@ -66,7 +66,8 @@ numberValue float,
 timestamp timestamp,
 prevDate int,
 insertDate int,
-snapshotNo int);```
+snapshotNo int);
+```
 
 
 ## Running it
