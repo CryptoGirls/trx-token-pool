@@ -31,19 +31,21 @@ If you want to run a private pool, you need to edit config.json and:
 
 
 ## Dependecies
-```sudo apt install python3-pip```
+```
+sudo apt install python3-pip
 
-```sudo pip3 install python-dateutil```
+sudo pip3 install python-dateutil
 
-```sudo pip3 install python-dateutil --upgrade```
+sudo pip3 install python-dateutil --upgrade
 
-```sudo apt-get install postgresql postgresql-contrib```
+sudo apt-get install postgresql postgresql-contrib
 
-```sudo apt-get install build-dep python-psycopg2```
+sudo apt-get install build-dep python-psycopg2
 
-```sudo pip3 install psycopg2-binary```
+sudo pip3 install psycopg2-binary
 
-```git clone https://github.com/CryptoGirls/trx-pool```
+git clone https://github.com/CryptoGirls/trx-pool
+```
 
 If you want to save snapshots in your database, create the following tables in your database:
 
