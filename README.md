@@ -97,6 +97,7 @@ The script is also runnable by cron using the -y argument:
 Even if you will run the payments daily, because of the 6 hours vote cycle, you can miss to pay some voters that voted for you in the first cycle of the day and they removed their vote. To prevent this, you can follow the next 2 steps:
 
 1. Run the following every hour (no payments will be broadcasted):
+
 ```python3 trxpool.py -c config_snapshot.json```
 
 2. Run trxpool.py normally to broadcast the payments
