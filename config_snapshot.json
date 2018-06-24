@@ -1,0 +1,22 @@
+{
+	"coin": "TRX",
+	"sraddress": "",
+	"node": "",
+	"nodepay": "",
+	"percentage": 70,
+	"logfile": "poollogs.json",
+	"minpayout": 65748111645000000,
+	"pk": "",
+	"feededuct": false,
+	"fees": 0,
+	"saveindb": true,
+	"dbname": "",
+	"dbuser": "",
+	"dbpass": "",
+	"dbhost": "",
+    "donations": {},
+    "donationspercentage": {},
+	"private": false,
+	"whitelist": [],
+	"skip": []
+}
