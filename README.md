@@ -129,7 +129,7 @@ This software is adapated by CryptoGirls for TRX payments.
 
 ## Features added by CryptoGirls
 - adapted the script for TRX
-- save snapshots of the realtime voting in the database
+- save snapshots of the votes in the database
 
 ## License
 Copyright 2017-2018 Davide Gessa
