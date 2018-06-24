@@ -1,12 +1,4 @@
 # TRX pool distribution software
-This software is created by lisk delegate "dakk", please consider a small donation if you
-use this software: 
-- "2324852447570841050L" for lisk
-- "7725849364280821971S" for shift
-- "AZAXtswaWS4v8eYMzJRjpd5pN3wMBj8Rmk" for ark
-- "8691988869124917015R" for rise
-This software is adapated by CryptoGirls for TRX payments.
-
 
 ## Configuration
 Edit config.json and modify the lines with your settings:
@@ -96,7 +88,16 @@ optional arguments:
                         override the minpayout value from config file
 ```
 
-##Features added by CryptoGirls
+## Author
+This software is created by lisk delegate "dakk", please consider a small donation if you
+use this software: 
+- "2324852447570841050L" for lisk
+- "7725849364280821971S" for shift
+- "AZAXtswaWS4v8eYMzJRjpd5pN3wMBj8Rmk" for ark
+- "8691988869124917015R" for rise
+This software is adapated by CryptoGirls for TRX payments.
+
+## Features added by CryptoGirls
 - adapted the script for TRX
 - save snapshots of the voters in database
 
