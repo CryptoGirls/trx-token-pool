@@ -52,7 +52,7 @@ If you want to run a private pool, you need to edit config.json and:
 
 or if you want to use another config file:
 
-```python3 trxpool.py -c config2.json```
+```python3 trxpool.py -c config_snapshot.json```
 
 It produces a file "payments.sh" with all payments shell commands. Run this file with:
 
@@ -68,13 +68,15 @@ The script is also runnable by cron using the -y argument:
 `python3 trxpool.py -y`
 
 
-### Avoid vote hoppers
+### Pay all the voters
 
-In some DPOS, some voters switch their voting weight from one delegate to another for
-receiving payout from multiple pools. A solution for that is the following flow:
+Even if you will run the payments daily, because of the 6 hours vote cycle, you can miss to pay some voters that voted for you in the first cycle of the day and they removed their vote. To prevent this, you can follow the next 2 steps:
 
-1. Run trxpool.py every hour with --min-payout=1000000 (a very high minpayout, so no payouts will be done but the pending will be updated)
+1. Run the following every hour (no payments will be broadcasted):
+```python3 trxpool.py -c config_snapshot.json```
+
 2. Run trxpool.py normally to broadcast the payments
+```python3 trxpool.py```
 
 
 ## Command line usage
