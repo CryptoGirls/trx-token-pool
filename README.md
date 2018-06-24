@@ -32,11 +32,15 @@ If you want to run a private pool, you need to edit config.json and:
 
 ## Dependecies
 ```sudo apt install python3-pip```
+
 ```sudo pip3 install python-dateutil```
+
 ```sudo pip3 install python-dateutil --upgrade```
 
 ```sudo apt-get install postgresql postgresql-contrib```
+
 ```sudo apt-get install build-dep python-psycopg2```
+
 ```sudo pip3 install psycopg2-binary```
 
 ```git clone https://github.com/CryptoGirls/trx-pool```
@@ -99,7 +103,7 @@ This software is adapated by CryptoGirls for TRX payments.
 
 ## Features added by CryptoGirls
 - adapted the script for TRX
-- save snapshots of the voters in database
+- save snapshots of the realtime voting in the database
 
 ## License
 Copyright 2017-2018 Davide Gessa
