@@ -47,7 +47,8 @@ If you want to run a private pool, you need to edit config.json and:
 
 If you want to save snapshots in your database, run:
 
-```create table voters(
+```
+create table voters(
 id SERIAL PRIMARY KEY,
 voterAddress varchar,
 votes float,
@@ -57,7 +58,7 @@ insertDate int,
 toPay float,
 snapshotNo int);
 
-create table const(
+create table constants(
 id SERIAL PRIMARY KEY,
 name varchar,
 stringValue varchar,
