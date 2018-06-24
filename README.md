@@ -102,7 +102,7 @@ Even if you will run the payments daily, because of the 6 hours vote cycle, you 
 
 ```python3 trxpool.py -c config_snapshot.json```
 
-2. Run trxpool.py normally to broadcast the payments
+2. Run the script normally to broadcast the payments
 ```
 python3 trxpool.py
 bash payments.sh
