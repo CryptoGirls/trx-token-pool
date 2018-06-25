@@ -135,6 +135,7 @@ use this software:
 ## Features added by CryptoGirls
 - adapted the script for TRX
 - save snapshots of the votes in the database
+
 Please consider a small donation if you use this software:
 - "TQk7fK1WfRqothSdTQBoYf7o81Byohzb1Y" for trx
 - "3Qv3uRZufA5t7GEz6BBH2khKbeUc7967RJ" for btc
