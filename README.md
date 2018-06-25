@@ -5,8 +5,8 @@ Edit config.json and modify the lines with your settings:
 
 - coin: TRX
 - sraddress: Super Representative's address
-- node: IP of the node where you get forging info
-- nodepay: IP of the node used for payments
+- node: node where you get data
+- nodepay: node used for payments
 - percentage: percentage to distribute
 - minpayout: the minimum amount for a payout
 - pk: the private key of your address
