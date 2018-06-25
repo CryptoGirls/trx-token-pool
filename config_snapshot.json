@@ -9,7 +9,7 @@
 	"pk": "",
 	"feededuct": false,
 	"fees": 0,
-	"saveindb": true,
+	"saveindb": false,
 	"dbname": "",
 	"dbuser": "",
 	"dbpass": "",
