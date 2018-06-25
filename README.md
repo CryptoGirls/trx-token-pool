@@ -137,9 +137,9 @@ use this software:
 - save snapshots of the votes in the database
 
 Please consider a small donation if you use this software:
-- "TQk7fK1WfRqothSdTQBoYf7o81Byohzb1Y" for trx
-- "3Qv3uRZufA5t7GEz6BBH2khKbeUc7967RJ" for btc
-- "0xD174B1A997d9CB3F7D2dE284EE37e77a5de030bE" for eth
+- TRX: "TQk7fK1WfRqothSdTQBoYf7o81Byohzb1Y"
+- BTC: "3Qv3uRZufA5t7GEz6BBH2khKbeUc7967RJ"
+- ETH: "0xD174B1A997d9CB3F7D2dE284EE37e77a5de030bE"
 
 ## License
 Copyright 2017-2018 Davide Gessa
