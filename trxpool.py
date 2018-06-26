@@ -7,6 +7,7 @@ import datetime
 import dateutil.parser as dp
 import psycopg2
 
+
 if sys.version_info[0] < 3:
 	print ('python2 not supported, please use python3')
 	sys.exit (0)
@@ -72,7 +73,7 @@ def saveLog (log):
 	
 def createPaymentLine (to, amount):
 	broadcast=True
-	data = {"contract": {"ownerAddress": conf['sraddress'], "toAddress": to, "amount": amount * 1000000}, "key": conf['pk'], "broadcast": broadcast}
+	data = {"contract": {"ownerAddress": conf['sraddress'], "toAddress": to, "amount": round( amount * 1000000)}, "key": conf['pk'], "broadcast": broadcast}
 	nodepay = conf['nodepay']
 
 	return 'curl -X POST "' + nodepay + '/api/transaction-builder/contract/transfer" -H "accept: application/json" -H "Content-Type: application/json" -d \'' + json.dumps (data) + '\' ' + "\n\nsleep 1\n"
@@ -150,7 +151,7 @@ def estimatePayouts (log):
 	log['lastforged'] = rew
 	rew = rew - lf
 
-	forged = (int (rew) ) * conf['percentage'] / 100
+	forged = round((float (rew) ) * conf['percentage'] / 100, 6)
 	print ('SHARING: %f %s' % (forged, conf['coin']))
 	
 	if forged < 0.1:
@@ -172,7 +173,7 @@ def estimatePayouts (log):
 	print ('WEIGHT: %f %s' % (weight, conf['coin']) + "\n")
 	
 	if conf['saveindb'] == True:
-		insertConstInDb("FORGED", "", int (rew), log['snapshotno'], log['lastpayout'], int (time.time ()))
+		insertConstInDb("FORGED", "", float (rew), log['snapshotno'], log['lastpayout'], int (time.time ()))
 		insertConstInDb("WEIGHT", "", weight, log['snapshotno'], log['lastpayout'], int (time.time ()))
 	for x in d['data']:
 		if int (x['votes']) == 0 or x['voterAddress'] in conf['skip']:
@@ -180,9 +181,9 @@ def estimatePayouts (log):
 			
 		if conf['private'] and not (x['voterAddress'] in conf['whitelist']):
 			continue
-		payouts.append ({  "username": x['voterAddress'], "weight": float (x['votes']) , "address": x['voterAddress'], "balance": (float (x['votes'])  * forged) / weight, "totalweight": weight, "forged": int (rew), "votedon": dp.parse(x['timestamp']).strftime('%s') })
+		payouts.append ({  "username": x['voterAddress'], "weight": float (x['votes']) , "address": x['voterAddress'], "balance": round((float (x['votes'])  * forged) / weight, 6), "totalweight": weight, "forged": float (rew), "votedon": dp.parse(x['timestamp']).strftime('%s') })
 		if conf['saveindb'] == True:
-			insertVoterInDb(x['voterAddress'], float (x['votes']), dp.parse(x['timestamp']).strftime('%s'), log['lastpayout'], int (time.time ()), (float (x['votes'])  * forged) / weight, log['snapshotno'])	
+			insertVoterInDb(x['voterAddress'], float (x['votes']), dp.parse(x['timestamp']).strftime('%s'), log['lastpayout'], int (time.time ()), round((float (x['votes'])  * forged) / weight, 6), log['snapshotno'])	
 	return (payouts, log, forged)
 	
 	
@@ -216,7 +217,7 @@ def pool ():
 		log['accounts'][x['address']]['weight'] = x['weight'] / x['totalweight'] * 100
 		log['totalweight'] = x['totalweight']
 		log['forged'] = x['forged']
-		log['todistribute'] = x['forged'] * conf['percentage'] / 100
+		log['todistribute'] = round(x['forged'] * conf['percentage'] / 100, 6)
 		if pending > 0:
 			log['accounts'][x['address']]['pending'] = 0
 		
@@ -246,7 +247,7 @@ def pool ():
 	# Donation percentage
 	if 'donationspercentage' in conf:
 		for y in conf['donationspercentage']:
-			am = (forged * conf['donationspercentage'][y]) / 100
+			am = round((forged * conf['donationspercentage'][y]) / 100, 6)
 			
 			f.write ('echo Sending donation ' + str (conf['donationspercentage'][y]) + '% \(' + str (am) + 'TRX\) to ' + y + '\n')	
 			f.write (createPaymentLine (y, am))
@@ -260,7 +261,6 @@ def pool ():
 	for z in log['accounts']:
 		log['totalpaid']+=log['accounts'][z]['received']
 		log['totalpending']+=log['accounts'][z]['pending']
-
 
 	for acc in log['accounts']:
 		print (acc, '\tWeight:', str(round(log['accounts'][acc]['weight'],2))+'%', '\tToPay:', log['accounts'][acc]['topay'], '\tPending:', log['accounts'][acc]['pending'], '\tVotedOn:', datetime.datetime.fromtimestamp(int(log['accounts'][acc]['votedon'])).strftime('%Y-%m-%d %H:%M:%S'))
