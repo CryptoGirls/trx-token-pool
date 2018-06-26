@@ -1,14 +1,14 @@
 # TRX pool distribution software
 
 ## Configuration
-Edit config.json and modify the lines with your settings:
+Edit config.json and config_snapshot.json and modify the lines with your settings:
 
 - coin: TRX
 - sraddress: Super Representative's address
 - node: node where you get data
 - nodepay: node used for payments
 - percentage: percentage to distribute
-- minpayout: the minimum amount for a payout
+- minpayout: the minimum amount for a payout (NOTICE: in config_snapshot.json DO NOT modify minpayout)
 - pk: the private key of your address
 - saveindb: true if you want to save snapshots in your database
 - dbname: name of your database; not needed if saveindb is set to false
