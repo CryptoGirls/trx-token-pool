@@ -147,10 +147,10 @@ def estimatePayouts (log):
 	lf = log['lastforged']
 
 	rew = (log['totalwithdraw'] + int (d.json ()['representative']['allowance'])) / 1000000
-	print ("\nREWARDS: %f %s" % (rew, conf['coin']))
 	log['lastforged'] = rew
 	rew = rew - lf
-
+	print ("\nREWARDS: %f %s" % (rew, conf['coin']))
+	
 	forged = round((float (rew) ) * conf['percentage'] / 100, 6)
 	print ('SHARING: %f %s' % (forged, conf['coin']))
 	
