@@ -45,6 +45,13 @@ sudo apt-get install build-dep python-psycopg2
 sudo pip3 install psycopg2-binary
 
 git clone https://github.com/CryptoGirls/trx-pool
+
+sudo apt install nodejs
+
+sudo apt install npm
+
+npm install axios
+
 ```
 
 If you want to save snapshots in your database, create the following tables in your database:
