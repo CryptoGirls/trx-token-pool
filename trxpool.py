@@ -38,6 +38,8 @@ if 'logfile' in conf:
 else:
 	LOGFILE = 'poollogs.json'
 
+VOTERSLOG = 'voters.json'
+
 fees = 0.0
 if 'feededuct' in conf and conf['feededuct']:
 	fees = conf['fees']
@@ -66,6 +68,17 @@ def loadLog ():
 			"skip": []
 		}
 	return data
+
+def loadVotersLog ():
+	try:
+		data = json.load (open (VOTERSLOG, 'r'))
+	except:
+		print ('Unable to load voters file.')
+		data = {
+			"date": 1529323200, 
+			"voters": {}
+		}
+	return data	
 	
 	
 def saveLog (log):
@@ -118,6 +131,27 @@ def insertConstInDb(name, stringValue, numberValue, snapshotNo, prevDate, insert
             conn.close()
     return id
 
+def updateVoterInDb(voterAddress):
+    sql = """UPDATE voters SET paid=1 where paid = NULL and voterAddress=%s RETURNING id;"""
+    print (voterAddress)
+    print (sql)
+    conn = None
+    id = None
+    try:
+    	conn = psycopg2.connect(dbparam)
+    	cur = conn.cursor()
+    	cur.execute(sql, (voterAddress))
+    	id = cur.fetchone()[0]
+    	conn.commit()
+    	cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        #print(error + ' - ' + voterAddress)
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return id
+
 def deleteSnapshotFromDb(snapshotNo):
     sql1 = """delete from voters where snapshotno = %s RETURNING id;"""
     sql2 = """delete from constants where snapshotno = %s RETURNING id;"""
@@ -140,31 +174,32 @@ def deleteSnapshotFromDb(snapshotNo):
             conn.close()
     return id
 
-def estimatePayouts (log):
+def estimatePayouts (log,voterslog):
+
 	log['snapshotno'] = log['snapshotno'] + 1
 	uri = conf['node'] + '/api/account/' + conf['sraddress']
 	d = requests.get (uri)
 	lf = log['lastforged']
 
-	rew = (log['totalwithdraw'] + int (d.json ()['representative']['allowance'])) / 1000000
+	rew = log['totalwithdraw'] +( int (d.json ()['representative']['allowance'])) / 1000000
 	log['lastforged'] = rew
 	rew = rew - lf
 	print ("\nREWARDS: %f %s" % (rew, conf['coin']))
-	
+
 	forged = round((float (rew) ) * conf['percentage'] / 100, 6)
 	print ('SHARING: %f %s' % (forged, conf['coin']))
 	
 	if forged < 0.1:
 		return ([], log, 0.0)
-	d = requests.get (conf['node'] + '/api/vote?sort=timestamp&candidate=' + conf['sraddress']).json ()
+	d = voterslog
 
 	weight = 0.0
 	payouts = []
-	
-	for x in d['data']:
-		if x['votes'] == '0' or x['voterAddress'] in conf['skip']:
-			continue
 
+
+	for x in d['data']:
+		if x['votes'] == "0" or x['voterAddress'] in conf['skip']:
+			continue
 		if conf['private'] and not (x['voterAddress'] in conf['whitelist']):
 			continue
 			
@@ -176,7 +211,7 @@ def estimatePayouts (log):
 		insertConstInDb("FORGED", "", float (rew), log['snapshotno'], log['lastpayout'], int (time.time ()))
 		insertConstInDb("WEIGHT", "", weight, log['snapshotno'], log['lastpayout'], int (time.time ()))
 	for x in d['data']:
-		if int (x['votes']) == 0 or x['voterAddress'] in conf['skip']:
+		if x['votes'] == "0" or x['voterAddress'] in conf['skip']:
 			continue
 			
 		if conf['private'] and not (x['voterAddress'] in conf['whitelist']):
@@ -189,8 +224,8 @@ def estimatePayouts (log):
 	
 def pool ():
 	log = loadLog ()
-	
-	(topay, log, forged) = estimatePayouts (log)
+	voterslog = loadVotersLog ()
+	(topay, log, forged) = estimatePayouts (log,voterslog)
 	if len (topay) == 0:
 			print ('Nothing to distribute, exiting...')
 			return
@@ -224,6 +259,8 @@ def pool ():
 		log['accounts'][x['address']]['topay'] = x['balance'] + pending - fees
 		f.write ('echo Sending ' + str (x['balance'] - fees) + ' \(+' + str (pending) + ' pending\) to ' + x['address'] + '\n')
 		f.write (createPaymentLine (x['address'], x['balance'] + pending - fees))
+		#print ("A")
+		#pdateVoterInDb(x['address'])
 
 			
 	# Handle pending balances
@@ -232,6 +269,8 @@ def pool ():
 		if log['accounts'][y]['pending'] - fees > conf['minpayout']:
 			f.write ('echo Sending pending ' + str (log['accounts'][y]['pending']) + ' to ' + y + '\n')
 			f.write (createPaymentLine (y, log['accounts'][y]['pending'] - fees))
+			#print ("B")
+			#updateVoterInDb(y)
 			
 			log['accounts'][y]['received'] += log['accounts'][y]['pending']
 			log['accounts'][y]['pending'] = 0.0
@@ -242,6 +281,8 @@ def pool ():
 		for y in conf['donations']:
 			f.write ('echo Sending donation ' + str (conf['donations'][y]) + ' to ' + y + '\n')
 			f.write (createPaymentLine (y, conf['donations'][y]))
+			#print ("C")
+			#updateVoterInDb(y)
 
 
 	# Donation percentage
@@ -251,6 +292,8 @@ def pool ():
 			
 			f.write ('echo Sending donation ' + str (conf['donationspercentage'][y]) + '% \(' + str (am) + 'TRX\) to ' + y + '\n')	
 			f.write (createPaymentLine (y, am))
+			#print ("D")
+			#updateVoterInDb(y)
 
 	f.close ()
 	
@@ -259,8 +302,8 @@ def pool ():
 	log['totalpaid']=0
 	log['totalpending']=0
 	for z in log['accounts']:
-		log['totalpaid']+=log['accounts'][z]['received']
-		log['totalpending']+=log['accounts'][z]['pending']
+		log['totalpaid']+=round(log['accounts'][z]['received'], 6)
+		log['totalpending']+=round(log['accounts'][z]['pending'], 6)
 
 	for acc in log['accounts']:
 		print (acc, '\tWeight:', str(round(log['accounts'][acc]['weight'],2))+'%', '\tToPay:', log['accounts'][acc]['topay'], '\tPending:', log['accounts'][acc]['pending'], '\tVotedOn:', datetime.datetime.fromtimestamp(int(log['accounts'][acc]['votedon'])).strftime('%Y-%m-%d %H:%M:%S'))
@@ -278,3 +321,5 @@ def pool ():
 
 if __name__ == "__main__":
 	pool ()
+
+
