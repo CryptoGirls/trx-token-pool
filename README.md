@@ -1,13 +1,18 @@
-# TRX pool distribution software
+# TRX token pool distribution software
+
+Use: to distribute a fixed amount of TRX tokens to the voters
 
 ## Configuration
 Edit config.json and config_snapshot.json and modify the lines with your settings:
 
 - coin: TRX
+- token: token symbol
 - sraddress: Super Representative's address
+- owneraddress: The addres from where the token payments will be broadcasted
 - node: node where you get data
 - nodepay: node used for payments
-- percentage: percentage to distribute
+- percentage: always 100 - this script distributes a fixed amount of tokens, not a percentage
+- amount: total amount of tokens to distribute
 - minpayout: the minimum amount for a payout (NOTICE: in config_snapshot.json DO NOT modify minpayout)
 - pk: the private key of your address
 - saveindb: true if you want to save snapshots in your database
