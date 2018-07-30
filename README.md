@@ -49,7 +49,7 @@ sudo apt-get install build-dep python-psycopg2
 
 sudo pip3 install psycopg2-binary
 
-git clone https://github.com/CryptoGirls/trx-pool
+git clone https://github.com/CryptoGirls/trx-token-pool
 
 sudo apt install nodejs
 
