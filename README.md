@@ -26,7 +26,6 @@ Edit config.json and config_snapshot.json and modify the lines with your setting
 
 Edit poollogs.json and modify the lines with your settings:
 - lastpayout: the unixtimestamp of your last payout or the date of pool starting
-- totalwithdraw: Total of the TRX claimed from tronscan.org. Every time you will claim rewards, you have to add that value here
 
 
 ### Private pool
