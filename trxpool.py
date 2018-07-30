@@ -86,10 +86,10 @@ def saveLog (log):
 	
 def createPaymentLine (to, amount):
 	broadcast=True
-	data = {"contract": {"ownerAddress": conf['sraddress'], "toAddress": to, "amount": round( amount * 1000000)}, "key": conf['pk'], "broadcast": broadcast}
+	data = {"contract": {"ownerAddress": conf['owneraddress'], "toAddress": to, "assetName": conf['coin'], "amount": round( amount * 1000000)}, "key": conf['pk'], "broadcast": broadcast}
 	nodepay = conf['nodepay']
 
-	return 'curl -X POST "' + nodepay + '/api/transaction-builder/contract/transfer" -H "accept: application/json" -H "Content-Type: application/json" -d \'' + json.dumps (data) + '\' ' + "\n\nsleep 1\n"
+	return 'curl -X POST "' + nodepay + '/api/transaction-builder/contract/transferasset" -H "accept: application/json" -H "Content-Type: application/json" -d \'' + json.dumps (data) + '\' ' + "\n\nsleep 1\n"
 
 dbparam = "dbname=" + conf['dbname'] + " user=" + conf['dbuser'] + " password=" + conf['dbpass'] + " host=" + conf['dbhost']
 
@@ -181,13 +181,9 @@ def estimatePayouts (log,voterslog):
 	d = requests.get (uri)
 	lf = log['lastforged']
 
-	rew = log['totalwithdraw'] +( int (d.json ()['representative']['allowance'])) / 1000000
-	log['lastforged'] = rew
-	rew = rew - lf
-	print ("\nREWARDS: %f %s" % (rew, conf['coin']))
-
-	forged = round((float (rew) ) * conf['percentage'] / 100, 6)
-	print ('SHARING: %f %s' % (forged, conf['coin']))
+	rew = conf ['amount']
+	print ("\SHARING: %f %s" % (rew, conf['token']))
+	forged=rew
 	
 	if forged < 0.1:
 		return ([], log, 0.0)
