@@ -1,9 +1,12 @@
 {
 	"coin": "TRX",
+	"token": "",
 	"sraddress": "",
+	"owneraddress": "",
 	"node": "https://api.tronscan.org",
 	"nodepay": "https://api.tronscan.org",
-	"percentage": 70,
+	"percentage": 100,
+	"amount": 100000,
 	"logfile": "poollogs.json",
 	"minpayout": 1,
 	"pk": "",
