@@ -86,13 +86,19 @@ snapshotNo int);
 
 ## Running it
 
+1. At the start of each round - 4 times a day
+
+```node votes.sh```
+
+2. At the end of each round - 3 times a day (the script will calculate pending amounts)
+
 ```python3 trxpool.py```
 
-or if you want to use another config file:
+3. At the end of the 4th round - once a day (the script will create a file called "payments.sh")
 
 ```python3 trxpool.py -c config_snapshot.json```
 
-It produces a file "payments.sh" with all payments shell commands. Run this file with:
+The file "payments.sh" will have all payments shell commands. Run this file with:
 
 ```bash payments.sh```
 
@@ -101,24 +107,11 @@ The payments will be broadcasted every second.
 
 ## Batch mode
 
-The script is also runnable by cron using the -y argument:
+The scripts are also runnable by cron. For trxpool.py commands -y argument is needed:
 
 `python3 trxpool.py -y`
 
-
-### Pay all the voters
-
-Even if you will run the payments daily, because of the 6 hours vote cycle, you can miss to pay some voters that voted for you in the first cycle of the day and they removed their vote. To prevent this, you can follow the next 2 steps:
-
-1. Run the following line periodically (every 3 hours/6 hours). No payments will be broadcasted.
-
-```python3 trxpool.py -c config_snapshot.json```
-
-2. Run the script normally to broadcast the payments
-```
-python3 trxpool.py
-bash payments.sh
-```
+`python3 trxpool.py -c config_snapshot.json`
 
 
 ## Command line usage
