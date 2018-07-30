@@ -1,6 +1,6 @@
 # TRX token distribution software
 
-Use: to distribute a fixed amount of TRX tokens to the voters
+Use: to distribute a fixed amount of TOKENS to the voters
 
 ## Configuration
 Edit config.json and config_snapshot.json and modify the lines with your settings:
