@@ -88,7 +88,7 @@ snapshotNo int);
 
 1. At the start of each round - 4 times a day
 
-```node votes.sh```
+```node votes.js```
 
 2. At the end of each round - 3 times a day (the script will calculate pending amounts)
 
@@ -107,11 +107,9 @@ The payments will be broadcasted every second.
 
 ## Batch mode
 
-The scripts are also runnable by cron. For trxpool.py commands -y argument is needed:
+The scripts are also runnable by cron:
 
-`python3 trxpool.py -y`
-
-`python3 trxpool.py -c config_snapshot.json`
+`See votes.sh, trx.sh and trx24.sh`
 
 
 ## Command line usage
