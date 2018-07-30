@@ -1,4 +1,4 @@
-# TRX token pool distribution software
+# TRX token distribution software
 
 Use: to distribute a fixed amount of TRX tokens to the voters
 
