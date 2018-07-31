@@ -6,7 +6,7 @@ Use: to distribute a fixed amount of TOKENS to the voters
 Edit config.json and config_snapshot.json and modify the lines with your settings:
 
 - coin: TRX
-- token: token symbol
+- token: token name
 - sraddress: Super Representative's address
 - owneraddress: The addres from where the token payments will be broadcasted
 - node: node where you get data
