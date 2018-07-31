@@ -27,6 +27,10 @@ Edit config.json and config_snapshot.json and modify the lines with your setting
 Edit poollogs.json and modify the lines with your settings:
 - lastpayout: the unixtimestamp of your last payout or the date of pool starting
 
+Edit the following line in votes.js with your SR address:
+
+const CANDIDATE_ADDRESS = '';
+
 
 ### Private pool
 If you want to run a private pool, you need to edit config.json and:
