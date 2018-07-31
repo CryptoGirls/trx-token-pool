@@ -50,6 +50,8 @@ sudo pip3 install psycopg2-binary
 
 git clone https://github.com/CryptoGirls/trx-token-pool
 
+cd trx-token-pool
+
 sudo apt install nodejs
 
 sudo apt install npm
