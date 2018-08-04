@@ -10,7 +10,7 @@ Edit config.json and config_snapshot.json and modify the lines with your setting
 - sraddress: Super Representative's address
 - owneraddress: The addres from where the token payments will be broadcasted
 - node: node where you get data
-- nodepay: node used for payments
+- nodepay: node used for payments. It's recommended to change the nodepay to http://127.0.0.1:9000 after clone and install Rovak's docker containers repo (Please see the details in dependencies section)
 - percentage: always 100 - this script distributes a fixed amount of tokens, not a percentage
 - amount: total amount of tokens to distribute
 - minpayout: the minimum amount for a payout (NOTICE: in config_snapshot.json DO NOT modify minpayout)
