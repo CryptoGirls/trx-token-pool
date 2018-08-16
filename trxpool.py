@@ -13,7 +13,7 @@ if sys.version_info[0] < 3:
 	sys.exit (0)
 
 # Parse command line args
-parser = argparse.ArgumentParser(description='TRX payments script')
+parser = argparse.ArgumentParser(description='TRX tokens payments script')
 parser.add_argument('-c', metavar='config.json', dest='cfile', action='store',
                    default='config.json',
                    help='set a config file (default: config.json)')
